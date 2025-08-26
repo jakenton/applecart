@@ -1,6 +1,14 @@
-@use './cart.scss' as *;
-@use './header.scss' as *;
-@use './store.scss' as *;
-@use './checkout.scss' as *;
-@use './footer.scss' as *;
-@use './toast.scss' as *;
+// GENERAL STYLES
+@use 'cart' as *;
+@use 'header' as *;
+@use 'store' as *;
+@use 'checkout' as *;
+@use 'footer' as *;
+@use 'toast' as *;
+
+.body {
+    font-family: 'SF Display Pro', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
