@@ -1,0 +1,59 @@
+.checkout {
+    margin: 2rem;
+    padding: 1rem;
+    background: #fff;
+    border: 1px solid #ccc;
+
+    &__title {
+        margin-bottom: 1rem;
+    }
+
+    &__item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__increase-btn,
+    &__decrease-btn {
+        margin-left: 10px;
+        padding: 0.2rem 0.5rem;
+        background: #007BFF;
+        color: white;
+        border: none;
+        cursor: pointer;
+        
+        &:hover {
+            background: #0056b3;
+        }
+    }
+
+    &__total {
+        margin-top: 1rem;
+        font-weight: bold;
+    }
+
+    &__proceed {
+        margin-top: 1rem;
+        background: #28a745;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+
+        &:hover {
+            background: #218838;
+        }
+    }
+}
+
+.checkout-success {
+    &__title {
+        margin-top: 2rem;
+        font-size: 1.5rem;
+    }
+
+    &__message {
+        margin-top: 0.5rem;
+    }
+}

@@ -90,6 +90,8 @@
                 }
             }
         }
+    }
+}
         
         // ADD STYLES FOR BUTTONS
         .header__cart-item {
@@ -160,8 +162,8 @@
                 background: #606060;
             }
         }    
-    }
-    .header__content {
+    
+        .header__content {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
@@ -180,4 +182,11 @@
             background: #595959;
         }
     }
-}
+
+    .header__cart-item-decrease {
+        background: #363636;
+
+        &:hover {
+            background: #595959;
+        }
+    }
