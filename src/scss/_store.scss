@@ -1,4 +1,4 @@
-// Store Styles
+// STORE STYLES
 .store {
     padding: 7.5rem 2rem 10rem 2rem;
     background-color: #f8f8f8;
@@ -15,47 +15,58 @@
         padding: 1rem;
         text-align: center;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
 
-    &-image {
-        width: 100%;
-        height: auto;
-        max-height: 150px;
-        object-fit: contain;
-    }
-
-    &-name {
-        font-size: 1.2rem;
-        margin: 0.5rem 0;
-    }
-
-    &-price {
-        color: #555;
-        margin: 0.5rem 0;
-    }
-
-    &-description {
-        color: #777;
-        font-size: 0.9rem;
-        margin: 0.5rem 0;
-    }
-
-    .store__add-to-cart {
-        background: #262626;
-        position: absolute;
-        bottom: 20px;
-        left: 10%;
-        width: 80%;
-        color: white;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.5s ease-in-out;
-        font-size: 0.9rem;
-
-        &:hover {
-            background: #a60000;
+        &-image {
+            width: 100%;
+            height: auto;
+            max-height: 150px;
+            object-fit: contain;
         }
+
+        &-name {
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
+        &-price {
+            color: #555;
+            margin: 0.5rem 0;
+        }
+
+        &-description {
+            color: #777;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+        }
+
+        .store__add-to-cart {
+            background: #262626;
+            position: absolute;
+            bottom: 20px;
+            left: 10%;
+            width: 80%;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.5s ease-in-out;
+            font-size: 0.9rem;
+
+            &:hover {
+                background: #a60000;
+            }
+        }    
     }
 }
+
+.store__product-list {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+  .store__product {
+    position: relative;
+    border-radius: 8px;
+    padding-bottom: 60px;
+  }
