@@ -19,11 +19,11 @@ document.addEventListener("DOMContentLoaded", function () {
             productElement.setAttribute('data-id', product.id);
 
             productElement.innerHTML = `
-            <img src="${product.image}" alt="${product.name}" class="store__product-image">
-            <h2 class="store__product-name">${product.name}</h2>
-            <p class="store__product-price">$${product.price.toFixed(2)}</p>
-            <p class="store__product-description">${product.description}</p>
-            <button class="store__add-to-cart">Add to Basket</button>
+                <img src="${product.image}" alt="${product.name}" class="store__product-image">
+                <h2 class="store__product-name">${product.name}</h2>
+                <p class="store__product-price">$${product.price.toFixed(2)}</p>
+                <p class="store__product-description">${product.description}</p>
+                <button class="store__add-to-cart">Add to Basket</button>
             `;
 
             productListElement.appendChild(productElement);
@@ -70,6 +70,62 @@ document.addEventListener("DOMContentLoaded", function () {
         updateCartPreview(); // UPDATE THE MINI-CART PREVIEW
     }
 
+    // FUNCTION TO UPDATE THE MINI-BASKET PREVIEW
+    function updateCartPreview() {
+        cartItemsElement.innerHTML = ''; // CLEAR EXISTING ITEMS
+        let total = 0;
+
+        cart.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.classList.add('header__cart-item');
+            li.innerHTML = `
+                <img src="${item.image}" alt="${item.name}" class="header__cart-item-image">
+                <span class="header__cart-item-name">${item.name}</span>
+                <span class="header__cart-item-quantity">x${item.quantity}</span>
+                <span class="header__cart-item-price">$${(item.price * item.quantity).toFixed(2)}</span>
+                <button class="header__cart-item-increase">+</button>
+                <button class="header__cart-item-decrease">-</button>
+                <button class="header__cart-item-remove">X</button>
+            `;
+            
+            // INCREASE QUANTITY
+            li.querySelector('.header__cart-item-increase').addEventListener('click', () => {
+                item.quantity++;
+                updateCart();
+            });
+
+            // DECREASE QUANTITY
+            li.querySelector('.header__cart-item-decrease').addEventListener('click', () => {
+                if (item.quantity > 1) {
+                    item.quantity--;
+                } else {
+                    cart.splice(index, 1); // REMOVE ITEM IF QUANTITY IS 0
+                }
+                showToast(`${item.name} removed from basket`, 'error'); // MAKE SURE 'item.name' IS USED HERE
+                updateCart();
+            });
+
+            // REMOVE ITEM
+            li.querySelector('.header__cart-item-remove').addEventListener('click', () => {
+                cart.splice(index, 1);
+                showToast(`${item.name} removed from basket`, 'error'); // MAKE SURE 'item.name' IS USED HERE
+                updateCart();
+            });
+
+            cartItemsElement.appendChild(li);
+            total += item.price * item.quantity;
+        });
+
+        cartTotalElement.textContent = total.toFixed(2);
+    }
+
+    // FUNCTION TO CLEAR THE BASKET
+    function clearCart() {
+        cart = [];
+        updateCart();
+        showToast(`Cleared entire basket`, 'error'); // MAKE SURE 'item.name' IS USED HERE
+    }
+
     // FUNCTION TO SHOW TOAST NOTIFICATIONS
     function showToast(message, type) {
         const toast = document.createElement('div');
@@ -85,7 +141,31 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 3000);
     }
 
+    // SHOW CART PREVIEW ON HOVER
+    const checkoutLink = document.querySelector('.header__checkout-link');
+
+    cartPreviewElement.addEventListener('mouseenter', () => {
+        cartPreviewElement.style.display = 'flex';
+    });
+
+    checkoutLink.addEventListener('mouseenter', () => {
+        cartPreviewElement.style.display = 'flex';
+    });
+
+    cartPreviewElement.addEventListener('mouseleave', () => {
+        cartPreviewElement.style.display = 'none';
+    });
+
+    checkoutLink.addEventListener('mouseleave', () => {
+        cartPreviewElement.style.display = 'none';
+    });
+
       // INITIAL RENDER AND UPDATE
       renderProducts(products);
       updateCart();
+
+      // HANDLE CLICKING ON THE "Clear Cart" BUTTON
+      document.querySelector('.header__clear-cart-button').addEventListener('click', clearCart);
+
+      // 
 });
