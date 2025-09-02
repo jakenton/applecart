@@ -4,7 +4,7 @@ export const products = [
         name: "MacBook Air 13-inch",
         price: 999.00,
         description: "Apple M1 Chip with 8‑Core CPU and 7‑Core GPU, 8GB RAM, 256GB SSD.",
-        image: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mac-card-40-macbook-air-m2-m3-202402?wid=1400&hei=1000&fmt=p-jpg&qlt=95&.v=1707259317253" // Replace with local image path
+        image: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mac-card-40-macbook-air-m2-m3-202402?wid=1400&hei=1000&fmt=p-jpg&qlt=95&.v=1707259317253" // Replace with your local image path
     },
     {
         id: 2,

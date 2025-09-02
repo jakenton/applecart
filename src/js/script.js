@@ -1,17 +1,16 @@
-import { products } from "../data/products";
+import { products } from '../data/products.js';
 document.addEventListener("DOMContentLoaded", function () {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
     const checkoutCountElement = document.querySelector(".header__checkout-count");
     const cartPreviewElement = document.querySelector(".header__cart-preview");
     const cartItemsElement = document.querySelector(".header__cart-items");
     const cartTotalElement = document.querySelector(".header__cart-total-amount");
-    const productListElement = document.querySelector(".store__product-list");
-    const toastContainer = document.querySelector(".toast-container");
+    const productListElement = document.querySelector('.store__product-list');
+    const toastContainer = document.querySelector('.toast-container');
 
-    // FUNCTION TO RENDER PRODUCTS
+    // Function to render products
     function renderProducts(products) {
-        productListElement.innerHTML = ''; // CLEAR EXISTING CONTENT
+        productListElement.innerHTML = ''; // Clear existing content
 
         products.forEach(product => {
             const productElement = document.createElement('div');
@@ -32,19 +31,19 @@ document.addEventListener("DOMContentLoaded", function () {
         attachAddToCartListeners();
     }
 
-    // FUNCTION TO ATTACh EVENT LISTENERS TO "ADD TO BASKET" BUTTONS
+    // Function to attach event listeners to "Add to Basket" buttons
     function attachAddToCartListeners() {
         document.querySelectorAll(".store__add-to-cart").forEach(button => {
-            button.addEventListener("click", fucntion () {
+            button.addEventListener("click", function () {
                 const productElement = this.parentElement;
                 const productId = productElement.getAttribute("data-id");
                 const productName = productElement.querySelector(".store__product-name").textContent;
-                const productPrice = parseFloat(productElement.querySelector("store__product-price").textContent.replace('$', ''));
+                const productPrice = parseFloat(productElement.querySelector(".store__product-price").textContent.replace('$', ''));
                 const productImage = productElement.querySelector(".store__product-image").src;
 
                 const existingProduct = cart.find(item => item.id === productId);
 
-                if(existingProduct) {
+                if (existingProduct) {
                     existingProduct.quantity++;
                 } else {
                     const product = {
@@ -63,16 +62,16 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // FUNCTION TO UPDATE THE CART IN localStorage AND UPDATE THE CHECKOUT COUNT
+    // Function to update the cart in localStorage and update the checkout count
     function updateCart() {
-        localStorage.setItem('cart', JSON.stringify(cart)); // SAVE THE CART TO localStorage
-        checkoutCountElement.textContent = cart.reduce((acc, item) => acc + item.quantity, 0); // UPDATE CART COUNT
-        updateCartPreview(); // UPDATE THE MINI-CART PREVIEW
+        localStorage.setItem('cart', JSON.stringify(cart)); // Save the cart to localStorage
+        checkoutCountElement.textContent = cart.reduce((acc, item) => acc + item.quantity, 0); // Update cart count
+        updateCartPreview(); // Update the mini-cart preview
     }
 
-    // FUNCTION TO UPDATE THE MINI-BASKET PREVIEW
+    // Function to update the mini-basket preview
     function updateCartPreview() {
-        cartItemsElement.innerHTML = ''; // CLEAR EXISTING ITEMS
+        cartItemsElement.innerHTML = ''; // Clear existing items
         let total = 0;
 
         cart.forEach((item, index) => {
@@ -87,28 +86,28 @@ document.addEventListener("DOMContentLoaded", function () {
                 <button class="header__cart-item-decrease">-</button>
                 <button class="header__cart-item-remove">X</button>
             `;
-            
-            // INCREASE QUANTITY
+
+            // Increase quantity
             li.querySelector('.header__cart-item-increase').addEventListener('click', () => {
                 item.quantity++;
                 updateCart();
             });
 
-            // DECREASE QUANTITY
+            // Decrease quantity
             li.querySelector('.header__cart-item-decrease').addEventListener('click', () => {
                 if (item.quantity > 1) {
                     item.quantity--;
                 } else {
-                    cart.splice(index, 1); // REMOVE ITEM IF QUANTITY IS 0
+                    cart.splice(index, 1); // Remove item if quantity is 0
                 }
-                showToast(`${item.name} removed from basket`, 'error'); // MAKE SURE 'item.name' IS USED HERE
+                showToast(`${item.name} removed from basket`, 'error'); // Make sure 'item.name' is used here
                 updateCart();
             });
 
-            // REMOVE ITEM
+            // Remove item
             li.querySelector('.header__cart-item-remove').addEventListener('click', () => {
                 cart.splice(index, 1);
-                showToast(`${item.name} removed from basket`, 'error'); // MAKE SURE 'item.name' IS USED HERE
+                showToast(`${item.name} removed from basket`, 'error'); // Make sure 'item.name' is used here
                 updateCart();
             });
 
@@ -119,14 +118,14 @@ document.addEventListener("DOMContentLoaded", function () {
         cartTotalElement.textContent = total.toFixed(2);
     }
 
-    // FUNCTION TO CLEAR THE BASKET
+    // Function to clear the basket
     function clearCart() {
         cart = [];
         updateCart();
-        showToast(`Cleared entire basket`, 'error'); // MAKE SURE 'item.name' IS USED HERE
+        showToast(`Cleared entire basket`, 'error'); // Make sure 'item.name' is used here
     }
 
-    // FUNCTION TO SHOW TOAST NOTIFICATIONS
+    // Function to show toast notifications
     function showToast(message, type) {
         const toast = document.createElement('div');
         toast.className = `toast toast--${type} toast--visible`;
@@ -134,14 +133,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         toastContainer.appendChild(toast);
 
-        // REMOVE THE TOAST AFTER A FEW SECONDS
+        // Remove the toast after a few seconds
         setTimeout(() => {
             toast.classList.remove('toast--visible');
-            toast.addEventListener('transitioned', () => toast.remove());
+            toast.addEventListener('transitionend', () => toast.remove());
         }, 3000);
     }
 
-    // SHOW CART PREVIEW ON HOVER
+    // Show cart preview on hover
     const checkoutLink = document.querySelector('.header__checkout-link');
 
     cartPreviewElement.addEventListener('mouseenter', () => {
@@ -160,12 +159,16 @@ document.addEventListener("DOMContentLoaded", function () {
         cartPreviewElement.style.display = 'none';
     });
 
-      // INITIAL RENDER AND UPDATE
-      renderProducts(products);
-      updateCart();
+    // Initial render and update
+    renderProducts(products);
+    updateCart();
 
-      // HANDLE CLICKING ON THE "Clear Cart" BUTTON
-      document.querySelector('.header__clear-cart-button').addEventListener('click', clearCart);
+    // Handle clicking on the "Clear Cart" button
+    document.querySelector('.header__clear-cart-button').addEventListener('click', clearCart);
 
-      // 
+    // Handle clicking on the "View Cart" button
+    document.querySelector('.header__view-cart-button').addEventListener('click', function () {
+        // Here you can implement a modal to show the detailed view of the cart
+        console.log('View Cart clicked:', cart);
+    });
 });
