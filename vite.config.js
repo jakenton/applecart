@@ -10,6 +10,9 @@ export default defineConfig({
     server: {
         fs: {
             strict: true,
-        }
+        },
+        watch: {
+            usePolling: true,
+        },
     }
 });
